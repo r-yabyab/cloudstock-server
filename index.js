@@ -14,6 +14,9 @@ const apiLimiter = rateLimit({
     store: new rateLimit.MemoryStore(),
 })
 
+const BASE_URL='https://ryabyab.iex.cloud/v1/data/core/quote/'
+const TOKEN='?token=sk_4b6ebe9d84b44fe48cbf602d2c70884e'
+
 
 //middleware
 const app = express()
@@ -41,20 +44,60 @@ app.use('/api', apiLimiter, stockRoute)
 //     }
 // })
 
-app.get('/data', (req, res) => {
-    res.json({ IEX_KEY: process.env.IEX_KEY });
-    });
+app.get('/news', (req, res) => {
 
 
 
-app.listen(3001, () => {
-    console.log('listening on port 3001')
-    console.log(process.env.IEX_KEY)
+    // console.log(req.query.yourStocks)
+
+    const getStockData = (stock) => {
+            return axios
+                .get(`${BASE_URL}${stock.stock}${process.env.IEX_KEY}`)
+                .catch((error) => {
+                    console.error("Error", error.message)
+                })
+        }
+    
+        // useEffect(() => {
+            let tempStockData = []
+            // const stockList = ["AAPL", "MSFT", "TSLA", "PCG", "AMZN"];
+            // const stockList = (yourStocks.symbol)
+            const stockList = req.query.yourStocks
+    
+    
+            let promises = [];
+            if (stockList) {
+            stockList.map((stock) => (
+                promises.push(
+                    getStockData(stock)
+                        .then((res) => {
+                            tempStockData.push({
+                                symbol: stock.stock,
+                                id: stock.id,
+                                // symbol: stock,
+                                ...res.data
+                            })
+                        })
+                )
+            ))}
+    
+            Promise.all(promises).then(() => {
+                // setStockData(tempStockData)
+                res.json(tempStockData)
+            })
+    
+        // }, [yourStocks, reducerValue])
+})
+
+
+
+app.listen(process.env.PORT, () => {
+    console.log('listening on port ', process.env.PORT)
 })
 
 
 
 
-app.get('*', (req, res) => {
-    res.status(500).json({message: "error"})
-})
+// app.get('*', (req, res) => {
+//     res.status(500).json({message: "error"})
+// })
