@@ -4,7 +4,6 @@ const express = require('express')
 const cors = require('cors')
 const stockRoute = require('./routes/stockRoute.js')
 const rateLimit = require('express-rate-limit')
-const axios = require("axios");
 
 const apiLimiter = rateLimit({
     windowMs: 5000, //1 second = 1000
@@ -85,9 +84,8 @@ app.use('/api', apiLimiter, stockRoute)
 
 
 app.listen(process.env.PORT, () => {
-    console.log('listening on port ', process.env.PORT)
+    console.log('Listening on port', process.env.PORT)
 })
-
 
 
 
