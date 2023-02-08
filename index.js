@@ -7,15 +7,12 @@ const rateLimit = require('express-rate-limit')
 const axios = require("axios");
 
 const apiLimiter = rateLimit({
-    windowMs: 3000, //1 second = 1000
-    max: 1,
+    windowMs: 5000, //1 second = 1000
+    max: 6,
     standardHeaders: true,
     legacyHeaders: false,
     store: new rateLimit.MemoryStore(),
 })
-
-const BASE_URL='https://ryabyab.iex.cloud/v1/data/core/quote/'
-const TOKEN='?token=sk_4b6ebe9d84b44fe48cbf602d2c70884e'
 
 
 //middleware
@@ -44,50 +41,46 @@ app.use('/api', apiLimiter, stockRoute)
 //     }
 // })
 
-app.get('/news', (req, res) => {
-
-
-
-    // console.log(req.query.yourStocks)
-
-    const getStockData = (stock) => {
-            return axios
-                .get(`${BASE_URL}${stock.stock}${process.env.IEX_KEY}`)
-                .catch((error) => {
-                    console.error("Error", error.message)
-                })
-        }
+// app.get('/news', (req, res) => {
+//     // console.log(req.query.yourStocks)
+//     const getStockData = (stock) => {
+//             return axios
+//                 .get(`${BASE_URL}${stock.stock}${process.env.IEX_KEY}`)
+//                 .catch((error) => {
+//                     console.error("Error", error.message)
+//                 })
+//         }
     
-        // useEffect(() => {
-            let tempStockData = []
-            // const stockList = ["AAPL", "MSFT", "TSLA", "PCG", "AMZN"];
-            // const stockList = (yourStocks.symbol)
-            const stockList = req.query.yourStocks
+//         // useEffect(() => {
+//             let tempStockData = []
+//             // const stockList = ["AAPL", "MSFT", "TSLA", "PCG", "AMZN"];
+//             // const stockList = (yourStocks.symbol)
+//             const stockList = req.query.yourStocks
     
     
-            let promises = [];
-            if (stockList) {
-            stockList.map((stock) => (
-                promises.push(
-                    getStockData(stock)
-                        .then((res) => {
-                            tempStockData.push({
-                                symbol: stock.stock,
-                                id: stock.id,
-                                // symbol: stock,
-                                ...res.data
-                            })
-                        })
-                )
-            ))}
+//             let promises = [];
+//             if (stockList) {
+//             stockList.map((stock) => (
+//                 promises.push(
+//                     getStockData(stock)
+//                         .then((res) => {
+//                             tempStockData.push({
+//                                 symbol: stock.stock,
+//                                 id: stock.id,
+//                                 // symbol: stock,
+//                                 ...res.data
+//                             })
+//                         })
+//                 )
+//             ))}
     
-            Promise.all(promises).then(() => {
-                // setStockData(tempStockData)
-                res.json(tempStockData)
-            })
+//             Promise.all(promises).then(() => {
+//                 // setStockData(tempStockData)
+//                 res.json(tempStockData)
+//             })
     
-        // }, [yourStocks, reducerValue])
-})
+//         // }, [yourStocks, reducerValue])
+// })
 
 
 
