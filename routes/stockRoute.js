@@ -111,3 +111,50 @@ router.get('/news', (req, res) => {
 
 
 module.exports = router;
+
+
+
+
+
+
+//// WORKS
+// router.get('/news', (req, res) => {
+//     // console.log(req.query.yourStocks)
+//     const getStockData = (stock) => {
+//             return axios
+//                 .get(`${BASE_URL}${stock.stock}${process.env.IEX_KEY}`)
+//                 .catch((error) => {
+//                     console.error("Error", error.message)
+//                 })
+//         }
+    
+//         // useEffect(() => {
+//             let tempStockData = []
+//             // const stockList = ["AAPL", "MSFT", "TSLA", "PCG", "AMZN"];
+//             // const stockList = (yourStocks.symbol)
+//             const stockList = req.query.yourStocks
+    
+    
+//             let promises = [];
+//             if (stockList) {
+//             stockList.map((stock) => (
+//                 promises.push(
+//                     getStockData(stock)
+//                         .then((res) => {
+//                             tempStockData.push({
+//                                 symbol: stock.stock,
+//                                 id: stock.id,
+//                                 // symbol: stock,
+//                                 ...res.data
+//                             })
+//                         })
+//                 )
+//             ))}
+    
+//             Promise.all(promises).then(() => {
+//                 // setStockData(tempStockData)
+//                 res.json(tempStockData)
+//             })
+    
+//         // }, [yourStocks, reducerValue])
+// })
