@@ -42,6 +42,7 @@ stream.on('data', (response) => {
   }
 
   var chunkArray = cleanedChunk.split('\r\n\r\n');
+  // var chunkArray = cleanedChunk.split('\r\n\r\n');
 
   chunkArray.forEach(function (message) {
     if (message) {
