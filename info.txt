@@ -10,3 +10,76 @@ SSE streaming all quotes
 
     Social sentiment, haven't seen it work yet
     url: 'https://cloud-sse.iexapis.com/stable/sentiment?token=sk_4b6ebe9d84b44fe48cbf602d2c70884e&symbols=spy',
+
+
+
+
+
+
+{
+  avgTotalVolume: 2820846,
+  calculationPrice: 'tops',
+  change: 0.06,
+  changePercent: 0.00103,
+  close: null,
+  closeSource: 'official',
+  closeTime: null,
+  companyName: 'Nasdaq Inc - 144A',
+  currency: 'USD',
+  delayedPrice: null,
+  delayedPriceTime: null,
+  extendedChange: null,
+  extendedChangePercent: null,
+  extendedPrice: null,
+  extendedPriceTime: null,
+  high: null,
+  highSource: null,
+  highTime: null,
+  iexAskPrice: 58.51,
+  iexAskSize: 100,
+  iexBidPrice: 57.41,
+  iexBidSize: 109,
+  iexClose: 58.5,
+  iexCloseTime: 1676665801049,
+  iexLastUpdated: 1676665801049,
+  iexMarketPercent: 0.10096901956159703,
+  iexOpen: 58.5,
+  iexOpenTime: 1676644200017,
+  iexRealtimePrice: 58.5,
+  iexRealtimeSize: 20,
+  iexVolume: 70208,
+  lastTradeTime: 1676665801049,
+  latestPrice: 58.5,
+  latestSource: 'IEX real time price',
+  latestTime: '3:30:01 PM',
+  latestUpdate: 1676665801049,
+  latestVolume: 695342,
+  low: null,
+  lowSource: null,
+  lowTime: null,
+  marketCap: 28739852271,
+  oddLotDelayedPrice: null,
+  oddLotDelayedPriceTime: null,
+  open: null,
+  openTime: null,
+  openSource: 'official',
+  peRatio: 25.55,
+  previousClose: 58.44,
+  previousVolume: 1167362,
+  primaryExchange: 'NASDAQ',
+  symbol: 'NDAQ',
+  volume: 695342,
+  week52High: 69.22,
+  week52Low: 46.3,
+  ytdChange: -0.03760080684596587
+}
+
+
+
+    // LAST output
+{
+  price: 15.495,
+  size: 50,
+  time: 1676656361315,
+  seq: 1817
+}

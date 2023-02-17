@@ -30,7 +30,8 @@ app.use((req, res, next) => {
     next()
 })
 
-const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/tops1second';
+// const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/tops1second';
+const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/last';
 const IEX_CLOUD_API_KEY = 'sk_4b6ebe9d84b44fe48cbf602d2c70884e'; // Replace with your actual API key
 
 app.use(cors())
@@ -55,7 +56,13 @@ app.get('/stream', (req, res) => {
   ).pipe(res);
 });
 
-
+    // TOPS output
+// {
+//   price: 15.495,
+//   size: 50,
+//   time: 1676656361315,
+//   seq: 1817
+// }
 
 
 // app.listen(3001, () => {
@@ -65,77 +72,77 @@ app.get('/stream', (req, res) => {
 
 
 // // // For displaying on terminal, use for debugging rea
-var stream;
-var partialMessage;
+// var stream;
+// var partialMessage;
 
-function connect() {
-  stream = request({
-    url: 'https://cloud-sse.iexapis.com/stable/tops1second?token=sk_4b6ebe9d84b44fe48cbf602d2c70884e&symbols=PCG',
-    headers: {
-      'Accept': 'text/event-stream'
-    }
-  })
-}
-connect();
+// function connect() {
+//   stream = request({
+//     url: 'https://cloud-sse.iexapis.com/stable/last1Second?token=sk_4b6ebe9d84b44fe48cbf602d2c70884e&symbols=pcg',
+//     headers: {
+//       'Accept': 'text/event-stream'
+//     }
+//   })
+// }
+// connect();
 
-stream.on('socket', () => {
-  console.log("Connected");
-});
+// stream.on('socket', () => {
+//   console.log("Connected");
+// });
 
-stream.on('end', () => {
-  console.log("Reconnecting");
-  connect();
-});
+// stream.on('end', () => {
+//   console.log("Reconnecting");
+//   connect();
+// });
 
-stream.on('complete', () => {
-  console.log("Reconnecting");
-  connect();
-});
+// stream.on('complete', () => {
+//   console.log("Reconnecting");
+//   connect();
+// });
 
-stream.on('error', (err) => {
-  console.log("Error", err);
-  connect();
-});
+// stream.on('error', (err) => {
+//   console.log("Error", err);
+//   connect();
+// });
 
-stream.on('data', (response) => {
-  var chunk = response.toString();
-  var cleanedChunk = chunk.replace(/data: /g, '');
+// stream.on('data', (response) => {
+//   var chunk = response.toString();
+//   var cleanedChunk = chunk.replace(/data: /g, '');
 
-  if (partialMessage) {
-    cleanedChunk = partialMessage + cleanedChunk;
-    partialMessage = "";
-  }
+//   if (partialMessage) {
+//     cleanedChunk = partialMessage + cleanedChunk;
+//     partialMessage = "";
+//   }
 
-  var chunkArray = cleanedChunk.split('\r\n\r\n');
-  // var chunkArray = cleanedChunk.split('\r\n\r\n');
+//   var chunkArray = cleanedChunk.split('\r\n\r\n');
+//   // var chunkArray = cleanedChunk.split('\r\n\r\n');
 
-  chunkArray.forEach(function (message) {
-    if (message) {
-      try {  
-        var quote = JSON.parse(message)[0];
-        console.log(quote);
-      } catch (error) {
-        partialMessage = message;
-      }
-    }
-  });
-});
+//   chunkArray.forEach(function (message) {
+//     if (message) {
+//       try {  
+//         var quote = JSON.parse(message)[0];
+//         console.log(quote);
+//       } catch (error) {
+//         partialMessage = message;
+//       }
+//     }
+//   });
+// });
 
-function wait () {
-  setTimeout(wait, 1000);
-};
+// function wait () {
+//   setTimeout(wait, 1000);
+// };
 
-wait();
-
-
+// wait();
 
 
 
 
 
-app.get('/api/stockquotes', (req, res) => {
-    res.json(quote); // quote is the parsed JSON data from the streaming API
-})
+
+
+// app.get('/api/stockquotes', (req, res) => {
+//     res.json(quote); // quote is the parsed JSON data from the streaming API
+// })
 
 
 
