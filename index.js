@@ -35,6 +35,7 @@ const IEX_CLOUD_API_KEY = 'sk_4b6ebe9d84b44fe48cbf602d2c70884e'; // Replace with
 
 app.use(cors())
 
+// SSE Stream
 app.get('/stream', (req, res) => {
   // const stockList = req.query.yourStocks
   const symbols = req.query.symbols
@@ -69,7 +70,7 @@ var partialMessage;
 
 function connect() {
   stream = request({
-    url: 'https://cloud-sse.iexapis.com/stable/tops1second?token=sk_4b6ebe9d84b44fe48cbf602d2c70884e&symbols=NDAQ,GME,TSLA',
+    url: 'https://cloud-sse.iexapis.com/stable/tops1second?token=sk_4b6ebe9d84b44fe48cbf602d2c70884e&symbols=PCG',
     headers: {
       'Accept': 'text/event-stream'
     }
