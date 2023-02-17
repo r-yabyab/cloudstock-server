@@ -6,6 +6,10 @@ var partialMessage;
 function connect() {
   stream = request({
     url: 'https://cloud-sse.iexapis.com/stable/tops1second?token=sk_4b6ebe9d84b44fe48cbf602d2c70884e&symbols=ndaq,vxx',
+    // url: 'https://cloud-sse.iexapis.com/stock/aapl/quote/latestPrice?token=sk_4b6ebe9d84b44fe48cbf602d2c70884e',
+    // url: 'https://cloud-sse.iexapis.com/stable/stocksUSNoUTP5Second?token=sk_4b6ebe9d84b44fe48cbf602d2c70884e&symbols=ndaq,spy',
+    // url: 'https://cloud-sse.iexapis.com/v1/latestPrice1Second?token=sk_4b6ebe9d84b44fe48cbf602d2c70884e&symbols=ndaq,spy,tsla',
+    
     headers: {
       'Accept': 'text/event-stream'
     }
