@@ -66,6 +66,17 @@ const BASE_URL='https://ryabyab.iex.cloud/v1/data/core/quote/'
 //     }
 // });
 
+router.get('/tickers', async (req, res) => {
+    try {
+        const response = await fetch(`https://ryabyab.iex.cloud/v1/ref-data/iex/symbols${process.env.IEX_KEY}`);
+        const json = await response.json();
+
+        res.json(json);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Server error' });
+    }
+})
 
 router.get('/news', (req, res) => {
     // console.log(req.query.yourStocks)
