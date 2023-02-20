@@ -32,7 +32,6 @@ app.use((req, res, next) => {
 
 // const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/tops1second';
 const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/last';
-const IEX_CLOUD_API_KEY = 'sk_4b6ebe9d84b44fe48cbf602d2c70884e'; // Replace with your actual API key
 
 app.use(cors())
 
@@ -48,7 +47,7 @@ app.get('/stream', (req, res) => {
       'Accept': 'text/event-stream'
     },
     qs: {
-      token: IEX_CLOUD_API_KEY,
+      token: process.env.IEX_KEY,
       // symbols: 'ndaq,vxx,pcg,'
       symbols: symbols
     }
