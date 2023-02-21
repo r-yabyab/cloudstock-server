@@ -39,7 +39,7 @@ const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/last?token=
 app.use(cors())
 
 // SSE Stream
-app.get('/stream', (req, res) => {
+app.get('/stream', async (req, res) => {
   // const stockList = req.query.yourStocks
   const symbols = req.query.symbols
   // console.log(symbols)
