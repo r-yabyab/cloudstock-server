@@ -51,7 +51,8 @@ app.get('/stream', (req, res) => {
       'Accept': 'text/event-stream'
     },
     qs: {
-      token: process.env.IEX_KEY.replace('?token=', ''),
+      // token: process.env.IEX_KEY.replace('?token=', ''),
+      token: 'sk_4b6ebe9d84b44fe48cbf602d2c70884e',
       // symbols: 'ndaq,vxx,pcg,'
       symbols: symbols
       // symbols: 'AAPL,GOOG'
