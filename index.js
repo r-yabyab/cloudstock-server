@@ -52,7 +52,7 @@ app.get('/stream', cors(), (req, res) => {
       "access-control-allow-origin": "*"
     },
     qs: {
-      token: `'${process.env.IEX_KEY.replace('?token=', '')}'`,
+      token: process.env.IEX_KEY.replace('?token=', ''),
       // symbols: 'ndaq,vxx,pcg,'
       symbols: symbols
       // symbols: 'AAPL,GOOG'
