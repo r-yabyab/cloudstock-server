@@ -31,19 +31,13 @@ app.use((req, res, next) => {
 })
 
 // const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/tops1second';
-const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/last?token=';
+const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/last';
 
 app.use(cors())
 
-const corsOptions = {
-  origin: '*'
-}
-
 // SSE Stream
-app.get('/stream', cors(corsOptions), (req, res) => {
+app.get('/stream', (req, res) => {
   // const stockList = req.query.yourStocks
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  console.log(res.getHeader('Access-Control-Allow-Origin'));
   const symbols = req.query.symbols
   // console.log(symbols)
   // console.log(process.env.IEX_KEY)
@@ -57,7 +51,7 @@ app.get('/stream', cors(corsOptions), (req, res) => {
       'Accept': 'text/event-stream'
     },
     qs: {
-      token: process.env.IEX_KEY.replace('?token=', ''),
+      token: process.env.IEX_KEY,
       // symbols: 'ndaq,vxx,pcg,'
       symbols: symbols
       // symbols: 'AAPL,GOOG'
