@@ -26,7 +26,6 @@ app.use(cors())
 // app.use(limiter)
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
     console.log(req.path, req.method)
     next()
 })
@@ -36,6 +35,7 @@ const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/last?token=
 
 
 // SSE Stream
+// vercel doesn't support this, need to run locally for now. All the REST endpoints are handled by vercel rn.
 app.get('/stream', (req, res) => {
   // const stockList = req.query.yourStocks
   const symbols = req.query.symbols
@@ -58,6 +58,7 @@ app.get('/stream', (req, res) => {
     }
   })
   ).pipe(res);
+  console.log(res)
 });
 
  
