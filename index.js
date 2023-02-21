@@ -48,7 +48,8 @@ app.get('/stream', (req, res) => {
     // url: 'https://cloud-sse.iexapis.com/stable/tops1second{token}&symbols=ndaq,vxx',
     url: IEX_CLOUD_API_ENDPOINT,
     headers: {
-      'Accept': 'text/event-stream'
+      'Accept': 'text/event-stream',
+      "access-control-allow-origin": "*"
     },
     qs: {
       token: `'${process.env.IEX_KEY.replace('?token=', '')}'`,
