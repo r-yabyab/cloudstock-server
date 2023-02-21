@@ -49,7 +49,7 @@ app.get('/stream', (req, res) => {
     url: IEX_CLOUD_API_ENDPOINT,
     headers: {
       'Accept': 'text/event-stream',
-      "access-control-allow-origin": "*"
+      "Access-Control-Allow-Origin": "*"
     },
     qs: {
       token: `'${process.env.IEX_KEY.replace('?token=', '')}'`,
