@@ -35,6 +35,16 @@ const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/last?token=
 
 app.use(cors())
 
+
+const corsOptions = {
+  origin: '*',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+app.use(cors(corsOptions));
+
+
 // SSE Stream
 app.get('/stream', (req, res) => {
   // const stockList = req.query.yourStocks
