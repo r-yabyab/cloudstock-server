@@ -22,7 +22,10 @@ const app = express()
 // const wss = new WebSocket.Server({ server })
 
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+  origin: '*',
+  exposedHeaders: 'Access-Control-Allow-Origin',
+}));
 // app.use(limiter)
 
 app.use((req, res, next) => {
@@ -31,7 +34,7 @@ app.use((req, res, next) => {
 })
 
 // const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/tops1second';
-const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/last';
+const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/last?token=';
 
 app.use(cors())
 
@@ -51,7 +54,7 @@ app.get('/stream', (req, res) => {
       'Accept': 'text/event-stream'
     },
     qs: {
-      token: process.env.IEX_KEY,
+      token: process.env.IEX_KEY.replace('?token=', ''),
       // symbols: 'ndaq,vxx,pcg,'
       symbols: symbols
       // symbols: 'AAPL,GOOG'
