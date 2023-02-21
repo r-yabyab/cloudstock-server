@@ -42,6 +42,8 @@ const corsOptions = {
 // SSE Stream
 app.get('/stream', cors(corsOptions), (req, res) => {
   // const stockList = req.query.yourStocks
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  console.log(res.getHeader('Access-Control-Allow-Origin'));
   const symbols = req.query.symbols
   // console.log(symbols)
   // console.log(process.env.IEX_KEY)
