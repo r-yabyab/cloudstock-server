@@ -22,10 +22,7 @@ const app = express()
 // const wss = new WebSocket.Server({ server })
 
 app.use(express.json())
-app.use(cors({
-  origin: '*',
-  exposedHeaders: 'Access-Control-Allow-Origin',
-}));
+app.use(cors())
 // app.use(limiter)
 
 app.use((req, res, next) => {
@@ -36,10 +33,9 @@ app.use((req, res, next) => {
 // const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/tops1second';
 const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/last?token=';
 
-app.use(cors())
 
 // SSE Stream
-app.get('/stream', async (req, res) => {
+app.get('/stream', (req, res) => {
   // const stockList = req.query.yourStocks
   const symbols = req.query.symbols
   // console.log(symbols)
