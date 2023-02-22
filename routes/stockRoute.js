@@ -4,33 +4,57 @@ const router = express.Router();
 
 const BASE_URL='https://ryabyab.iex.cloud/v1/data/core/quote/'
 
+// router.get('/tickers', async (req, res) => {
+//     try {
+//         const response = await fetch(`https://ryabyab.iex.cloud/v1/ref-data/iex/symbols${process.env.IEX_KEY}`);
+//         const json = await response.json();
+
+//         res.json(json);
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: 'Server error' });
+//     }
+// })
+
 router.get('/tickers', async (req, res) => {
     try {
-        const response = await fetch(`https://ryabyab.iex.cloud/v1/ref-data/iex/symbols${process.env.IEX_KEY}`);
-        const json = await response.json();
-
-        res.json(json);
+      const response = await axios.get(`https://ryabyab.iex.cloud/v1/ref-data/iex/symbols${process.env.IEX_KEY}`);
+      res.json(response.data);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Server error' });
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
     }
-})
+  });
 
-router.get('/tickerquote', async (req, res) => {
-    const {symbolName} = req.query;
-    // console.log(symbolName)
+        // // fetch
+        // router.get('/tickerquote', async (req, res) => {
+        //     const {symbolName} = req.query;
+        //     // console.log(symbolName)
 
-    try {
-        const response = await fetch(`https://ryabyab.iex.cloud/v1/data/core/quote/${symbolName}${process.env.IEX_KEY}`);
-        const json = await response.json();
+        //     try {
+        //         const response = await fetch(`https://ryabyab.iex.cloud/v1/data/core/quote/${symbolName}${process.env.IEX_KEY}`);
+        //         const json = await response.json();
 
-        res.json(json);
-        // console.log(json)
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Server error' });
-    }
-});
+        //         res.json(json);
+        //         // console.log(json)
+        //     } catch (error) {
+        //         console.error(error);
+        //         res.status(500).json({ message: 'Server error' });
+        //     }
+        // });
+
+        // // axios
+        router.get('/tickerquote', async (req, res) => {
+            const {symbolName} = req.query;
+
+            try {
+              const response = await axios.get(`https://ryabyab.iex.cloud/v1/data/core/quote/${symbolName}${process.env.IEX_KEY}`);
+              res.json(response.data);
+            } catch (error) {
+              console.error(error);
+              res.status(500).json({ message: 'Server error' });
+            }
+          });
 
 
 router.get('/news', (req, res) => {

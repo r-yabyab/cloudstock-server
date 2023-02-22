@@ -7,6 +7,8 @@ const rateLimit = require('express-rate-limit')
 const request = require('request')
 // const WebSocket = require('ws')
 
+const port = 3001
+
 const apiLimiter = rateLimit({
     windowMs: 5000, //1 second = 1000
     max: 6,
@@ -58,9 +60,34 @@ app.get('/stream', (req, res) => {
     }
   })
   ).pipe(res);
-  console.log(res)
+  // console.log(res)
 });
 
+// // last output
+// {
+//   symbol: 'NDAQ',
+//   price: 56.72,
+//   size: 25,
+//   time: 1677005429924,
+//   seq: 1421
+// }
+
+// // tops output
+// {
+//   symbol: 'NDAQ',
+//   sector: 'n/a',
+//   securityType: 'n/a',
+//   bidPrice: 52.42,
+//   bidSize: 180,
+//   askPrice: 56.72,
+//   askSize: 300,
+//   lastUpdated: 1677005513893,
+//   lastSalePrice: 56.715,
+//   lastSaleSize: 10,
+//   lastSaleTime: 1677005500079,
+//   volume: 98521,
+//   seq: 13182
+// }
  
 
 //works
@@ -68,8 +95,8 @@ app.use('/api', apiLimiter, stockRoute)
 
 
 
-app.listen(process.env.PORT, () => {
-    console.log('Listening on port', process.env.PORT)
+app.listen(port, () => {
+    console.log('Listening on port', port)
 })
 
 
