@@ -7,6 +7,7 @@ const rateLimit = require('express-rate-limit')
 const request = require('request')
 // const WebSocket = require('ws')
 
+// for EC2 instance
 const port = 3001
 
 const apiLimiter = rateLimit({
