@@ -7,7 +7,9 @@ const rateLimit = require('express-rate-limit')
 const request = require('request')
 // const WebSocket = require('ws')
 
-// for EC2 instance
+// for EC2 instance (http://34.218.179.6:3001/)
+// as of now 2/21/23, the EC2 instance clones repository. To update...... idk yet
+// on EC2, use pm2 logs 0 to see live logs
 const port = 3001
 
 const apiLimiter = rateLimit({
@@ -35,6 +37,7 @@ app.use((req, res, next) => {
 
 // const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/tops1second';
 const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/last?token=';
+// const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/tops?token=';  // wastes a ton of tokens
 
 
 // SSE Stream
