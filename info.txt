@@ -1,5 +1,6 @@
 need to put API key in server for git - DONE
 
+03/17/23 - possibly need to move away from req.pipe(request...) to axios when handling SSE proxy bc deprecated
 
 
 
