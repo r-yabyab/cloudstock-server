@@ -31,7 +31,6 @@ app.use(cors())
 // app.use(limiter)
 
 app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*");
     console.log(req.path, req.method)
     next()
 })
