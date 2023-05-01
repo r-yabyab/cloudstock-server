@@ -28,7 +28,7 @@ const app = express()
 
 app.use(express.json())
 app.use(cors())
-// app.use(limiter)
+// app.use(limiter) //
 
 app.use((req, res, next) => {
     console.log(req.path, req.method)
