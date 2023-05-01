@@ -13,8 +13,8 @@ const request = require('request')
 const port = 3001
 
 const apiLimiter = rateLimit({
-    windowMs: 5000, //1 second = 1000
-    max: 6,
+    windowMs: 3000, //1 second = 1000
+    max: 1000,
     standardHeaders: true,
     legacyHeaders: false,
     store: new rateLimit.MemoryStore(),
@@ -31,41 +31,94 @@ app.use(cors())
 // app.use(limiter)
 
 app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*");
     console.log(req.path, req.method)
     next()
 })
 
 // const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/tops1second';
-const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/last?token=';
+// const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/last?token=';
+const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/v1/tops?token=';
 // const IEX_CLOUD_API_ENDPOINT = 'https://cloud-sse.iexapis.com/stable/tops?token=';  // wastes a ton of tokens
 
+// app.get('/stream', (req, res) => {
+//   const symbols = req.query.symbols
+
+//   const externalReq = request({
+//     url: IEX_CLOUD_API_ENDPOINT,
+//     headers: {
+//       'Accept': 'text/event-stream'
+//     },
+//     qs: {
+//       token: process.env.IEX_KEY.replace('?token=', ''),
+//       symbols: symbols
+//     }
+//   });
+
+//   req.on('close', () => {
+//     externalReq.destroy();
+//   });
+
+//   externalReq.pipe(res);
+// });
 
 // SSE Stream
-// vercel doesn't support this, need to run locally for now. All the REST endpoints are handled by vercel rn.
-app.get('/stream', (req, res) => {
-  // const stockList = req.query.yourStocks
-  const symbols = req.query.symbols
-  // console.log(symbols)
-  // console.log(process.env.IEX_KEY)
-  // console.log(process.env.IEX_KEY.replace('?token=', ''))
+// app.get('/stream', apiLimiter, (req, res) => {
+//   // const stockList = req.query.yourStocks
+//   // const symbols = req.query.symbols
+//   const symbols = req.query
 
+//   req.pipe(request({
+//     // url: 'https://cloud-sse.iexapis.com/stable/tops1second{token}&symbols=ndaq,vxx',
+//     url: IEX_CLOUD_API_ENDPOINT,
+//     headers: {
+//       'Accept': 'text/event-stream',
+//       // 'Content-Type': 'text/event-stream'
+//     },
+//     qs: {
+//       token: process.env.IEX_KEY.replace('?token=', ''),
+//       // symbols: 'ndaq,vxx,pcg,'
+//       symbols: symbols
+//       // symbols: 'AAPL,GOOG'
+//     }
+//   })
+//   ).pipe(res);
+//   // console.log(res)
+// });
 
-  req.pipe(request({
-    // url: 'https://cloud-sse.iexapis.com/stable/tops1second{token}&symbols=ndaq,vxx',
-    url: IEX_CLOUD_API_ENDPOINT,
-    headers: {
-      'Accept': 'text/event-stream'
-    },
-    qs: {
-      token: process.env.IEX_KEY.replace('?token=', ''),
-      // symbols: 'ndaq,vxx,pcg,'
-      symbols: symbols
-      // symbols: 'AAPL,GOOG'
-    }
-  })
-  ).pipe(res);
-  // console.log(res)
-});
+// SSE Stream with timeout
+// app.get('/stream', apiLimiter, (req, res) => {
+//   const delay = 10000; // Delay for 3 seconds
+//   const timeoutId = setTimeout(() => {
+//     const symbols = req.query.symbols;
+//     req.pipe(
+//       request({
+//         url: IEX_CLOUD_API_ENDPOINT,
+//         headers: {
+//           // 'Accept': 'text/event-stream'
+//           'Content-Type': 'text/event-stream'
+//         },
+//         qs: {
+//           token: process.env.IEX_KEY.replace('?token=', ''),
+//           symbols: symbols
+//         }
+//       })
+//     ).pipe(res);
+//   }, delay);
+
+//   req.on('close', () => {
+//     clearTimeout(timeoutId); // Cancel the setTimeout if the request is closed before the delay
+//   });
+
+//   req.on('end', () => {
+//     clearTimeout(timeoutId); // Cancel the setTimeout if the request ends before the delay
+//   });
+
+//   setTimeout(() => {
+//     req.destroy(); // Force close the connection
+//   }, delay);
+// });
+
 
 // // last output
 // {
